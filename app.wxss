@@ -1,0 +1,13 @@
+/* 全局样式 —— 只放跨页面的基础项,页面样式写在各自 wxss 里 */
+
+page {
+  background: #f5f7fa;
+  color: #1f2328;
+  font-size: 28rpx;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+}
+
+.mono {
+  font-family: Menlo, Consolas, monospace;
+}

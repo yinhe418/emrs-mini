@@ -1,0 +1,49 @@
+<view class="page">
+
+  <!-- 环境信息 -->
+  <view class="card">
+    <view class="card-title">当前环境</view>
+    <view class="kv">
+      <text class="k">环境</text>
+      <text class="v">{{envName}}</text>
+    </view>
+    <view class="kv">
+      <text class="k">服务地址</text>
+      <text class="v mono" bindtap="onCopyBase">{{baseUrl}}</text>
+    </view>
+    <view class="tip">点击地址可复制。开发者工具需勾选「不校验合法域名」。</view>
+  </view>
+
+  <!-- 自检 -->
+  <view class="card">
+    <view class="card-title">连通性自检</view>
+
+    <view class="check" wx:for="{{checks}}" wx:key="key">
+      <view class="dot dot-{{item.state}}"></view>
+      <view class="check-body">
+        <view class="check-head">
+          <text class="check-label mono">{{item.label}}</text>
+          <text class="check-desc">{{item.desc}}</text>
+        </view>
+        <view class="check-detail mono" wx:if="{{item.detail}}">{{item.detail}}</view>
+        <view class="check-detail" wx:elif="{{item.state === 'loading'}}">请求中…</view>
+        <view class="check-detail muted" wx:else>未检查</view>
+      </view>
+    </view>
+
+    <button class="btn" type="primary" bindtap="onRun" loading="{{running}}" disabled="{{running}}">
+      {{running ? '自检中…' : '开始自检'}}
+    </button>
+
+    <view class="result result-ok" wx:if="{{hasRun && allOk}}">全部通过 ✓</view>
+    <view class="result result-fail" wx:elif="{{hasRun && !running}}">有失败项,见上方明细</view>
+  </view>
+
+  <!-- 说明 -->
+  <view class="card">
+    <view class="card-title">说明</view>
+    <view class="note">本期小程序端只提供连通性自检,业务接口尚未实现(后端返回 40401)。</view>
+    <view class="note">路由前缀 <text class="mono">/api/mini/</text> 只在 nginx 剥掉,后端仍认 <text class="mono">/api/v1/...</text>。</view>
+  </view>
+
+</view>
